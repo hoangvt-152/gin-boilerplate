@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"gin-boilerplate/controllers"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -11,6 +12,7 @@ func RegisterRoutes(route *gin.Engine) {
 		ctx.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "message": "Route Not Found"})
 	})
 	route.GET("/health", func(ctx *gin.Context) { ctx.JSON(http.StatusOK, gin.H{"live": "ok"}) })
+	route.GET("/v1/example/", controllers.GetData)
 
 	//Add All route
 	//TestRoutes(route)
