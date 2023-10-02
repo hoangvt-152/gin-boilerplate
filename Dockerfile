@@ -29,6 +29,11 @@ WORKDIR /root/
 COPY --from=builder /app/main .
 COPY --from=builder /app/.env.example .env
 
+COPY --from=builder /app/config/lang/de.json ./de.json 
+COPY --from=builder /app/config/lang/en.json ./en.json 
+
+
+
 # Expose port 8080 to the outside world
 EXPOSE 8000
 
