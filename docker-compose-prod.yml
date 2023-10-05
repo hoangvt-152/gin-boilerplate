@@ -10,12 +10,14 @@ services:
       - POSTGRES_DB=${MASTER_DB_NAME}
     volumes:
       - prod_postgres_data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
     restart: always
 
   server:
     container_name: go_server
     build:
-      context: .
+      context: ./provider
       dockerfile: Dockerfile
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}

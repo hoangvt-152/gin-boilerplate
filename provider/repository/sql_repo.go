@@ -5,7 +5,7 @@ import (
 	"gin-boilerplate/infra/logger"
 )
 
-func Save(model interface{}) interface{} {
+func Save(model interface{}) error {
 	err := database.DB.Create(model).Error
 	if err != nil {
 		logger.Errorf("error, not save data %v", err)
@@ -13,17 +13,17 @@ func Save(model interface{}) interface{} {
 	return err
 }
 
-func Get(model interface{}) interface{} {
+func Get(model interface{}) error {
 	err := database.DB.Find(model).Error
 	return err
 }
 
-func GetOne(model interface{}) interface{} {
+func GetOne(model interface{}) error {
 	err := database.DB.Last(model).Error
 	return err
 }
 
-func Update(model interface{}) interface{} {
+func Update(model interface{}) error {
 	err := database.DB.Find(model).Error
 	return err
 }
