@@ -49,7 +49,7 @@ func GetCategoryById(ctx *gin.Context) {
 	    })
 } 
 
-func CreateCategories(ctx *gin.Context) {
+func CreateCategory(ctx *gin.Context) {
 	example := new(models.Category)
 	err := ctx.ShouldBindJSON(&example)
 	if err !=nil{
@@ -69,37 +69,23 @@ func CreateCategories(ctx *gin.Context) {
 		Message: ginI18n.MustGetMessage(ctx,"sussess"),
 	 })//&example)
   }
-  func CreateCategories(ctx *gin.Context) {
-	example := new(models.Category)
-	err := ctx.ShouldBindJSON(&example)
-	if err !=nil{
-		error := errors.New("Format error")
-		ctx.JSON(http.StatusBadRequest, helpers.ResponseError{Error: error.Error()})
-		return		
-	}
-
-	err = repository.Save(&example)
-	if err != nil {
-		error := errors.New("Internal Error")
-		ctx.JSON(http.StatusBadRequest, helpers.ResponseError{Error: error.Error()})
-		return
-	}
-	ctx.JSON(http.StatusOK,helpers.Response{
-		Data:&example,
-		Message: ginI18n.MustGetMessage(ctx,"sussess"),
-	 })//&example)
-  }
+  
 
   func UpdateCategory(ctx *gin.Context) {
+	categoryId, err := strconv.Atoi(ctx.Param("id"))
+
+
 	example := new(models.Category)
-	err := ctx.ShouldBindJSON(&example)
+	example.Id = categoryId
+
+	err = ctx.ShouldBindJSON(&example)
 	if err !=nil{
 		error := errors.New("Format error")
 		ctx.JSON(http.StatusBadRequest, helpers.ResponseError{Error: error.Error()})
 		return		
 	}
 
-	err = repository.Save(&example)
+	err = repository.Update(&example)
 	if err != nil {
 		error := errors.New("Internal Error")
 		ctx.JSON(http.StatusBadRequest, helpers.ResponseError{Error: error.Error()})
@@ -110,5 +96,24 @@ func CreateCategories(ctx *gin.Context) {
 		Message: ginI18n.MustGetMessage(ctx,"sussess"),
 	 })//&example)
   }
+
+
+  func DeleteCategory(ctx *gin.Context) {
+	categoryId, err := strconv.Atoi(ctx.Param("id"))
+	example := new(models.Category)
+	example.Id = categoryId
+	err = repository.Delete(&example)
+	if err != nil {
+		error := errors.New("Internal Error")
+		ctx.JSON(http.StatusBadRequest, helpers.ResponseError{Error: error.Error()})
+		return
+	}
+	ctx.JSON(http.StatusOK,helpers.Response{
+		Data:&example,
+		Message: ginI18n.MustGetMessage(ctx,"sussess"),
+	 })//&example)
+  }
+   
+  
    
  

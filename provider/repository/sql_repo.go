@@ -24,6 +24,13 @@ func GetOne(model interface{}) error {
 }
 
 func Update(model interface{}) error {
-	err := database.DB.Find(model).Error
+	err := database.DB.Model(model).Updates(model).Error
+	//err := database.DB.Find(model).Error
+	return err
+}
+
+func Delete(model interface{}) error {
+	err := database.DB.Delete(model).Error
+	//err := database.DB.Find(model).Error
 	return err
 }
