@@ -1,15 +1,14 @@
 package routers
 
 import (
+	"encoding/json"
+	"fmt"
 	"gin-boilerplate/routers/middleware"
+	ginI18n "github.com/gin-contrib/i18n"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
-	ginI18n "github.com/gin-contrib/i18n"
 	"golang.org/x/text/language"
-	"encoding/json"
 	"os"
-	"fmt"
-
 )
 
 func SetupRoute() *gin.Engine {
@@ -24,7 +23,7 @@ func SetupRoute() *gin.Engine {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(path)  //
+	fmt.Println(path) //
 
 	allowedHosts := viper.GetString("ALLOWED_HOSTS")
 	router := gin.New()
@@ -37,8 +36,8 @@ func SetupRoute() *gin.Engine {
 		DefaultLanguage:  language.English,
 		UnmarshalFunc:    json.Unmarshal,
 		FormatBundleFile: "json",
-	  })))
-	
+	})))
+
 	router.Use(middleware.CORSMiddleware())
 
 	RegisterRoutes(router) //routes register

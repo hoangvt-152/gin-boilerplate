@@ -12,11 +12,11 @@ import (
 	ginI18n "github.com/gin-contrib/i18n"
 )
 
-func GetProviders(ctx *gin.Context) {
-	var example []*models.Provider
+func GetProviderRules(ctx *gin.Context) {
+	var example []*models.ProviderRule
 	err := repository.Get(&example)
 	if err != nil {
-		error := errors.New("Cannot get the list of Provider")
+		error := errors.New("Cannot get the list of ProviderRule")
 
 		ctx.JSON(http.StatusBadRequest, helpers.ResponseError{Error: error.Error()})
 		return
@@ -28,14 +28,14 @@ func GetProviders(ctx *gin.Context) {
 	})
 }
 
-func GetProviderById(ctx *gin.Context) {
-	ProviderId, err := strconv.Atoi(ctx.Param("id"))
-	example := new(models.Provider)
-	example.Id = ProviderId
+func GetProviderRuleById(ctx *gin.Context) {
+	ProviderRuleId, err := strconv.Atoi(ctx.Param("id"))
+	example := new(models.ProviderRule)
+	example.Id = ProviderRuleId
 
 	err = repository.GetOne(&example)
 	if err != nil {
-		error := errors.New("Provider is not exist")
+		error := errors.New("ProviderRule is not exist")
 		ctx.JSON(http.StatusBadRequest, helpers.ResponseError{Error: error.Error()})
 		return
 
@@ -46,8 +46,8 @@ func GetProviderById(ctx *gin.Context) {
 	})
 }
 
-func CreateProvider(ctx *gin.Context) {
-	example := new(models.Provider)
+func CreateProviderRule(ctx *gin.Context) {
+	example := new(models.ProviderRule)
 	err := ctx.ShouldBindJSON(&example)
 	if err != nil {
 		error := errors.New("Format error")
@@ -67,11 +67,11 @@ func CreateProvider(ctx *gin.Context) {
 	}) //&example)
 }
 
-func UpdateProvider(ctx *gin.Context) {
-	ProviderId, err := strconv.Atoi(ctx.Param("id"))
+func UpdateProviderRule(ctx *gin.Context) {
+	ProviderRuleId, err := strconv.Atoi(ctx.Param("id"))
 
-	example := new(models.Provider)
-	example.Id = ProviderId
+	example := new(models.ProviderRule)
+	example.Id = ProviderRuleId
 
 	err = ctx.ShouldBindJSON(&example)
 	if err != nil {
@@ -92,10 +92,10 @@ func UpdateProvider(ctx *gin.Context) {
 	}) //&example)
 }
 
-func DeleteProvider(ctx *gin.Context) {
-	ProviderId, err := strconv.Atoi(ctx.Param("id"))
-	example := new(models.Provider)
-	example.Id = ProviderId
+func DeleteProviderRule(ctx *gin.Context) {
+	ProviderRuleId, err := strconv.Atoi(ctx.Param("id"))
+	example := new(models.ProviderRule)
+	example.Id = ProviderRuleId
 	err = repository.Delete(&example)
 	if err != nil {
 		error := errors.New("Internal Error")

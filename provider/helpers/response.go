@@ -9,6 +9,5 @@ type Response struct {
 type ResponseError struct {
 	Code    int         `json:"code"`
 	Message string      `json:"message"`
-	Error interface{} `json:"error,omitempty"`
+	Error   interface{} `json:"error,omitempty"`
 }
-
