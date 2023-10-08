@@ -32,6 +32,21 @@ func RegisterRoutes(route *gin.Engine) {
 	route.PUT("/v1/production/:id", controllers.UpdateProviderProduction)
 	route.DELETE("/v1/production/:id", controllers.DeleteProviderProduction)
 
+	
+	route.GET("/v1/deal", controllers.GetProductDeals)
+	route.POST("/v1/deal", controllers.CreateProductDeal)
+	route.GET("/v1/deal/:id", controllers.GetProductDealById)
+	route.PUT("/v1/deal/:id", controllers.UpdateProductDeal)
+	route.DELETE("/v1/deal/:id", controllers.DeleteProductDeal)
+
+
+	route.GET("/v1/rule", controllers.GetProviderRules)
+	route.POST("/v1/rule", controllers.CreateProviderRule)
+	route.GET("/v1/rule/:id", controllers.GetProviderRuleById)
+	route.PUT("/v1/rule/:id", controllers.UpdateProviderRule)
+	route.DELETE("/v1/rule/:id", controllers.DeleteProviderRule)
+
+
 	//Add All route
 	//TestRoutes(route)
 }
