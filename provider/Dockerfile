@@ -16,6 +16,7 @@ RUN go mod download
 # Copy everythings
 COPY . .
 
+
 # Build the Go app
 RUN CGO_ENABLED=0 GOOS=linux go build -mod=readonly -v -o main .
 
@@ -31,7 +32,6 @@ COPY --from=builder /app/.env.example .env
 
 COPY --from=builder /app/config/lang/de.json ./de.json 
 COPY --from=builder /app/config/lang/en.json ./en.json 
-
 
 
 # Expose port 8080 to the outside world

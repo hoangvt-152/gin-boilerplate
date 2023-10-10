@@ -1,12 +1,10 @@
 package models
 
 import (
-	"gorm.io/gorm"
 	"time"
 )
 
 type ProductDeal struct {
-	gorm.Model
 	Id             int        `gorm:"primary_key" json:"id,omitempty"`
 	ProductId      int        `json:"product_id"`
 	State          int        `json:"state"`

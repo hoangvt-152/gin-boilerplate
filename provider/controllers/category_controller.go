@@ -5,15 +5,16 @@ import (
 	"gin-boilerplate/helpers"
 	"gin-boilerplate/models"
 	"gin-boilerplate/repository"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 
 	ginI18n "github.com/gin-contrib/i18n"
 )
 
 func GetCategories(ctx *gin.Context) {
-	var example []*models.Category
+	var example []*models.CategoryOutput
 	err := repository.Get(&example)
 	if err != nil {
 		error := errors.New("Cannot get the list of category")
@@ -30,7 +31,7 @@ func GetCategories(ctx *gin.Context) {
 
 func GetCategoryById(ctx *gin.Context) {
 	categoryId, err := strconv.Atoi(ctx.Param("id"))
-	example := new(models.Category)
+	example := new(models.CategoryOutput)
 	example.Id = categoryId
 
 	err = repository.GetOne(&example)

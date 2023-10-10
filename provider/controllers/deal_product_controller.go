@@ -1,13 +1,18 @@
 package controllers
 
 import (
+	"encoding/json"
 	"errors"
+	"fmt"
+	"gin-boilerplate/config"
 	"gin-boilerplate/helpers"
+	"gin-boilerplate/infra/logger"
 	"gin-boilerplate/models"
 	"gin-boilerplate/repository"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 
 	ginI18n "github.com/gin-contrib/i18n"
 )
@@ -56,6 +61,22 @@ func CreateProductDeal(ctx *gin.Context) {
 	}
 
 	err = repository.Save(&example)
+	qrCodeData := map[string]interface{}{
+		"id":              example.Id,
+		"provider_id":     example.ProductId,
+		"state":           example.State,
+		"discount number": example.DiscountNumber,
+		"discount type":   example.DiscountType,
+		"expired":         example.ExpiredTime,
+	}
+	fmt.Println(config.QrCodeImageFolder)
+	qrCodeImagePathFile := fmt.Sprintf("%s/qr_code_%d.png", config.QrCodeImageFolder, example.Id)
+	jsonQrData, jerr := json.Marshal(qrCodeData)
+	helpers.QrCodeImageGenerator(string(jsonQrData), qrCodeImagePathFile)
+	if jerr != nil {
+		logger.Debugf("Error happends during generate json")
+	}
+
 	if err != nil {
 		error := errors.New("Internal Error")
 		ctx.JSON(http.StatusBadRequest, helpers.ResponseError{Error: error.Error()})

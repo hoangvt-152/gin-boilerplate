@@ -1,12 +1,10 @@
 package models
 
 import (
-	"gorm.io/gorm"
 	"time"
 )
 
 type Provider struct {
-	gorm.Model
 	Id            int                  `gorm:"primary_key" json:"id,omitempty"`
 	CategoryId    int                  `json:"category_id"`
 	Name          string               `gorm:"type:varchar(255);not null" json:"name"`
